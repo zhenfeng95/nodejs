@@ -12,5 +12,5 @@ app.use(async ctx => {
     }
   });
 
-app.listen(9595)
-console.log('listen 9595')
+app.listen(95)
+console.log('listen 95')
