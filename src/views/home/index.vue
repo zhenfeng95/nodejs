@@ -6,22 +6,19 @@
     <main class="main-wrapper">
       <Device></Device>
     </main>
-    <!-- <Test></Test> -->
   </div>
 </template>
 
 <script>
-import Header from '@components/header'
-import Device from '@components/device'
-import Test from '@components/test'
+import Header from "@components/header";
+import Device from "@components/device";
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     Header,
-    Device,
-    Test
+    Device
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
