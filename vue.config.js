@@ -1,26 +1,26 @@
 /** @format */
 
-const path = require('path')
-const vConsolePlugin = require('vconsole-webpack-plugin')
-const isProductionEnvFlag = process.env.NODE_ENV === 'production'
+const path = require("path");
+const vConsolePlugin = require("vconsole-webpack-plugin");
+const isProductionEnvFlag = process.env.NODE_ENV === "production";
 
 function resolve(dir) {
-  return path.resolve(__dirname, dir)
+  return path.resolve(__dirname, dir);
 }
 
-let appVariable = null
+let appVariable = null;
 
-if (process.env.NODE_ENV === 'production') {
-  appVariable = require(path.resolve(__dirname, './env.production.js'))
+if (process.env.NODE_ENV === "production") {
+  appVariable = require(path.resolve(__dirname, "./env.production.js"));
 } else {
-  appVariable = require(path.resolve(__dirname, './env.developer.js'))
+  appVariable = require(path.resolve(__dirname, "./env.developer.js"));
 }
 
 if (appVariable) {
-  Object.keys(appVariable).forEach(key => {
-    console.log(key)
-    process.env[key] = appVariable[key]
-  })
+  Object.keys(appVariable).forEach((key) => {
+    console.log(key);
+    process.env[key] = appVariable[key];
+  });
 }
 
 module.exports = {
@@ -28,22 +28,22 @@ module.exports = {
     plugins: [
       !isProductionEnvFlag
         ? new vConsolePlugin({
-            enable: true
+            enable: true,
           })
-        : () => {}
-    ]
+        : () => {},
+    ],
   },
   // 项目部署的基本路径
   // 默认假设你的应用将会部署在域名的根部
   // 比如，https://www.vue-cli.com/
   //如果你的应用是部署在一个子路径下，那么你需要在这里指定子路径，比如，如果你部署在 https://www.my-vue.com/my-app/; 那么将这个值改为 “/my-app/”
-  publicPath: '/manage/',
+  publicPath: "./",
 
   //将构建好的文件输出到哪里 当运行 vue-cli-service build 时生成的生产环境构建文件的目录。注意目标目录在构建之前会被清除 (构建时传入 --no-clean 可关闭该行为)。
-  outputDir: 'dist',
+  outputDir: "dist",
 
   //放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录。
-  assetsDir: '',
+  assetsDir: "",
 
   // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码。这个值会在 @vue/cli-plugin-eslint 被安装之后生效。
   // 设置为 true 时，eslint-loader 会将 lint 错误输出为编译警告。默认情况下，警告仅仅会被输出到命令行，且不会使得编译失败。
@@ -60,24 +60,24 @@ module.exports = {
   productionSourceMap: false,
 
   //是一个函数，会接收一个基于 webpack-chain 的 ChainableConfig 实例。允许对内部的 webpack 配置进行更细粒度的修改。
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.resolve.alias
-      .set('@', resolve('src'))
-      .set('@helper', resolve('src/helper'))
-      .set('@views', resolve('src/views'))
-      .set('@assets', resolve('src/assets'))
-      .set('@router', resolve('src/router'))
-      .set('@mixins', resolve('src/mixins'))
-      .set('@components', resolve('src/components'))
-      .set('@mock', resolve('src/mock'))
+      .set("@", resolve("src"))
+      .set("@helper", resolve("src/helper"))
+      .set("@views", resolve("src/views"))
+      .set("@assets", resolve("src/assets"))
+      .set("@router", resolve("src/router"))
+      .set("@mixins", resolve("src/mixins"))
+      .set("@components", resolve("src/components"))
+      .set("@mock", resolve("src/mock"));
   },
 
   //是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-  parallel: require('os').cpus().length > 1,
+  parallel: require("os").cpus().length > 1,
 
   // 代理配置
   devServer: {
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     port: 9595, // 端口号
     https: true, // https:{type:Boolean}
     open: true, //配置自动启动浏览器  open: 'Google Chrome'-默认启动谷歌
@@ -85,26 +85,26 @@ module.exports = {
 
     // 配置多个代理
     proxy: {
-      '/api': {
-        target: 'https://way.jd.com', //目标主机
+      "/api": {
+        target: "https://way.jd.com", //目标主机
         ws: true, //代理的WebSockets
         changeOrigin: true, //需要虚拟主机站点
         pathRewrite: {
-          '^/api': ''
-        }
+          "^/api": "",
+        },
       },
-      '/mock/*': {
-        target: 'https://localhost:9595/manage',
+      "/mock/*": {
+        target: "https://localhost:9595/manage",
         changeOrigin: true, // 设置这个参数可以避免跨域
         pathRewrite: {
-          '^/mock': ''
-        }
-      }
+          "^/mock": "",
+        },
+      },
     },
-    before: require('./mock')
+    before: require("./mock"),
   },
 
   // 第三方插件选项
   // 这是一个不进行任何 schema 验证的对象，因此它可以用来传递任何第三方插件选项。
-  pluginOptions: {}
-}
+  pluginOptions: {},
+};

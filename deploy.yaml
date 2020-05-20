@@ -1,6 +1,6 @@
 # deploy.yaml
 apps:
-  - script: ./src/main.js # 入口文件
+  - script: ./app.js # 入口文件
     name: "app" # 程序名称
     env: # 环境变量
       COMMON_VARIABLE: true
