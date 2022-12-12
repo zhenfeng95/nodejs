@@ -11,7 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "node-sass": "^4.14.1",
     "qrcodejs2": "0.0.2",
     "qs": "^6.9.4",
